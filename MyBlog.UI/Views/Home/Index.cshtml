@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row mb-2" ng-controller="HomeController">
+
+    <div class="col-md-6" ng-repeat="article in articleList">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">{{article.category.name}}</strong>
+                <h3 class="mb-0">{{article.title}}</h3>
+                <div class="mb-1 text-muted">{{article.createdDate | date:'dd-MM-yyyy'}}</div>
+                <p class="card-text mb-auto" ng-bind-html="trustAsHtml(article.content)" style="max-height: 100px;overflow: hidden;"></p>
+                <a href="/Article/Index?Id={{article.id}}" class="stretched-link">Okumaya Devam Et</a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img width="200" height="250" ng-show="article.fileName!=''" src="https://localhost:7019/{{article.fileName}}" />
+                <img width="200" height="250" ng-show="article.fileName==''" src="https://localhost:7019/null.jpg" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-5 mb-5 text-center" ng-show="articleList.length<1">
+        <h2> YAYINDA OLAN MAKALE BULUNMAMAKTADIR. </h2>
+    </div>
+
+</div>
+
+@section Scripts{
+        <script src="~/page/home.js"></script>
+}
